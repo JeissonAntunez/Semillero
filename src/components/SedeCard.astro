@@ -1,0 +1,50 @@
+---
+// SedeCard.astro
+interface Props {
+  nombre: string;
+  direccion: string;
+  referencia: string;
+  mapEmbedUrl: string; // URL de embed de Google Maps
+  googleMapsLink: string; // Link para el botón
+}
+
+const { nombre, direccion, referencia, mapEmbedUrl, googleMapsLink } = Astro.props;
+---
+
+<div class="bg-white rounded-3xl shadow-xl overflow-hidden flex flex-col h-full border border-stone-100">
+  <!-- Mapa -->
+  <div class="h-64 w-full">
+    <iframe
+      width="100%"
+      height="100%"
+      style="border:0"
+      loading="lazy"
+      allowfullscreen
+      src={mapEmbedUrl}>
+    </iframe>
+  </div>
+
+  <!-- Información -->
+  <div class="p-8 flex flex-col items-center text-center flex-grow">
+    <h3 class="text-orange-500 font-black text-xl mb-6 uppercase tracking-wider">{nombre}</h3>
+    
+    <div class="space-y-4 mb-8 text-stone-600 text-sm">
+      <div class="flex items-start justify-center gap-3">
+        <span class="text-orange-500 mt-1">📍</span>
+        <p>{direccion}</p>
+      </div>
+      <div class="flex items-start justify-center gap-3">
+        <span class="text-orange-500 mt-1">🏠</span>
+        <p><span class="font-bold">Ref:</span> {referencia}</p>
+      </div>
+    </div>
+
+    <a 
+      href={googleMapsLink} 
+      target="_blank" 
+      class="mt-auto w-full bg-[#9A7B4F] hover:bg-[#866a43] text-white font-bold py-3 rounded-xl transition-colors duration-300"
+    >
+      Ver en Google Maps
+    </a>
+  </div>
+</div>

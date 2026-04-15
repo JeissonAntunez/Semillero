@@ -1,0 +1,131 @@
+---
+const sponsors = [
+  { name: 'BCP', src: '/logos/bcp.png' },
+  { name: 'ATV', src: '/logos/atv.png' },
+  { name: 'Adidas', src: '/logos/adidas.png' },
+  { name: 'Ferrero', src: '/logos/ferrero.png' },
+];
+
+// Triplicamos para asegurar que no haya huecos
+const allSponsors = [...sponsors, ...sponsors, ...sponsors];
+---
+
+<section class="magnetic-section py-24 bg-stone-50 overflow-hidden">
+  <div class="perspective-wrapper">
+    <div class="magnetic-track" id="magnetic-track">
+      {allSponsors.map((logo) => (
+        <div class="magnetic-item group">
+          <div class="logo-box">
+            <img 
+              src={logo.src} 
+              alt={logo.name} 
+              class="w-32 h-auto grayscale group-hover:grayscale-0 transition-all duration-500 pointer-events-none"
+            />
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .magnetic-section {
+    width: 100%;
+    cursor: crosshair;
+  }
+  .perspective-wrapper {
+    perspective: 1200px;
+    display: flex;
+    align-items: center;
+  }
+  .magnetic-track {
+    display: flex;
+    gap: 3rem;
+    padding: 4rem 0;
+    will-change: transform;
+  }
+  .magnetic-item {
+    flex: 0 0 auto;
+    width: 200px;
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform-style: preserve-3d;
+  }
+  .logo-box {
+    width: 100%;
+    height: 100%;
+    background: white;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    transform: rotateY(-25deg) rotateX(10deg);
+    transition: box-shadow 0.3s ease;
+  }
+  .magnetic-item:hover .logo-box {
+    box-shadow: 0 25px 60px rgba(0,0,0,0.12);
+  }
+</style>
+
+<script>
+  import { gsap } from "gsap";
+
+  // Tipamos los elementos correctamente para evitar errores de TS
+  const track = document.getElementById('magnetic-track') as HTMLElement;
+  const items = document.querySelectorAll('.magnetic-item') as NodeListOf<HTMLElement>;
+  const boxes = document.querySelectorAll('.logo-box') as NodeListOf<HTMLElement>;
+
+  if (track && items.length > 0) {
+    // 1. Animación de Bucle Infinito Matemático
+    // Movemos exactamente el 33.33% porque tenemos 3 copias del array original
+    const loop = gsap.to(track, {
+      xPercent: -33.333,
+      ease: "none",
+      duration: 25,
+      repeat: -1,
+    });
+
+    // 2. Efecto Magnético y 3D Dinámico
+    items.forEach((item, index) => {
+      const box = boxes[index];
+      
+      // Corregimos el error usando una función de evento estándar y casteando dentro
+      item.addEventListener('mousemove', (e: Event) => {
+        const mouseEvent = e as MouseEvent; // Esto elimina el error de la imagen
+        const rect = item.getBoundingClientRect();
+        
+        const x = mouseEvent.clientX - rect.left - rect.width / 2;
+        const y = mouseEvent.clientY - rect.top - rect.height / 2;
+
+        gsap.to(loop, { timeScale: 0.1, duration: 0.5 });
+
+        gsap.to(box, {
+          x: x * 0.4,
+          y: y * 0.4,
+          rotateY: x * 0.1,
+          rotateX: -y * 0.1,
+          scale: 1.15,
+          duration: 0.4,
+          ease: "power2.out"
+        });
+      });
+
+      item.addEventListener('mouseleave', () => {
+        gsap.to(loop, { timeScale: 1, duration: 0.5 });
+
+        gsap.to(box, {
+          x: 0,
+          y: 0,
+          rotateY: -25,
+          rotateX: 10,
+          scale: 1,
+          duration: 0.6,
+          ease: "elastic.out(1, 0.5)"
+        });
+      });
+    });
+  }
+</script>

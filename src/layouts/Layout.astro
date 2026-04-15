@@ -5,6 +5,10 @@
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import Galeria from '../components/Galeria.astro';
+import MagneticSponsors from '../components/MagneticSponsors.astro';
+import Sedes from '../components/Sedes.astro';
+import SedesInteractivas from '../components/SedesInteractivas.astro';
 ---
 
 
@@ -24,6 +28,10 @@ import Footer from '../components/Footer.astro';
 		<Header />
 		<div>
 		<slot />
+		<Galeria />
+		<MagneticSponsors />
+		<Sedes />
+		<SedesInteractivas />
 		</div>
 		<Footer />
 	</body>

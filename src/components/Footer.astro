@@ -1,4 +1,73 @@
-<div>
-    <p>&copy; 2026 Semillero Huaral. All rights reserved.</p>
+---
+const currentYear = new Date().getFullYear();
+---
 
-</div>
+<footer class="bg-[#4a3a2e] text-white pt-16 pb-8 px-4">
+  <div class="max-w-7xl mx-auto">
+    <!-- Grid Principal -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
+      
+      <!-- Columna 1: Branding -->
+      <div class="space-y-6">
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center overflow-hidden">
+            <!-- Reemplaza con tu logo real -->
+            <span class="font-black text-2xl">H</span>
+          </div>
+          <h2 class="text-xl font-bold tracking-tight">Academia Tenis</h2>
+        </div>
+        <p class="text-stone-300 text-sm leading-relaxed max-w-xs italic">
+          Formando a las campeonas de mañana en un ambiente de apoyo y excelencia deportiva.
+        </p>
+      </div>
+
+      <!-- Columna 2: Enlaces Rápidos -->
+      <div>
+        <h3 class="text-lg font-bold mb-6">Enlaces Rápidos</h3>
+        <div class="grid grid-cols-2 gap-4 text-stone-300 text-sm">
+          <ul class="space-y-3">
+            <li><a href="/nosotros" class="hover:text-orange-400 transition-colors">Sobre Nosotros</a></li>
+            <li><a href="/eventos" class="hover:text-orange-400 transition-colors">Eventos</a></li>
+          </ul>
+          <ul class="space-y-3">
+            <li><a href="/horarios" class="hover:text-orange-400 transition-colors">Horarios</a></li>
+            <li><a href="/galeria" class="hover:text-orange-400 transition-colors">Galería</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Columna 3: Redes Sociales -->
+      <div class="flex flex-col md:items-end">
+        <h3 class="text-lg font-bold mb-6 md:text-right w-full">Síguenos</h3>
+        <div class="flex gap-4">
+          <!-- Iconos circulares con efecto hover -->
+          {[
+            { icon: 'tiktok', url: '#' },
+            { icon: 'facebook', url: '#' },
+            { icon: 'instagram', url: '#' },
+            { icon: 'email', url: 'mailto:info@academia.com' }
+          ].map((social) => (
+            <a 
+              href={social.url} 
+              class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-orange-500 transition-all duration-300 group"
+              aria-label={social.icon}
+            >
+              <span class="text-xs group-hover:scale-110 transition-transform uppercase font-bold">
+                {social.icon[0]}
+              </span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+
+    <!-- Línea Divisoria -->
+    <div class="border-t border-white/10 pt-8 mt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-stone-400 text-xs italic">
+      <p>© {currentYear} Academia de Tenis. Todos los derechos reservados.</p>
+      <div class="flex gap-6">
+        <a href="/privacidad" class="hover:text-white">Privacidad</a>
+        <a href="/terminos" class="hover:text-white">Términos</a>
+      </div>
+    </div>
+  </div>
+</footer>

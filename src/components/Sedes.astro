@@ -1,0 +1,35 @@
+---
+import SedeCard from './SedeCard.astro';
+
+const API_KEY = "TU_API_KEY_AQUI";
+
+const sedes = [
+  {
+    nombre: "1ra Sede X",
+    direccion: "San Manuel 137, Los Olivos 15306, Los Olivos",
+    referencia: "Frente a la Universidad Cesar Vallejo, costado de la SUNAT",
+    // Reemplaza el lugar en q=nombre+del+lugar
+    mapEmbedUrl: `https://google.com{API_KEY}&q=Universidad+Cesar+Vallejo+Los+Olivos`,
+    googleMapsLink: "https://goo.gl..."
+  },
+  {
+    nombre: "2da Sede X",
+    direccion: "Parque Virgen de la Medalla Milagrosa, Urb. Villasol 4ta Etapa",
+    referencia: "Frente a la Av. A con Universitaria, costado del colegio Santo Domingo de Villasol",
+    mapEmbedUrl: `https://google.com{API_KEY}&q=Parque+Medalla+Milagrosa+Villasol`,
+    googleMapsLink: "https://goo.gl..."
+  }
+];
+---
+
+<section class="py-20 bg-stone-50">
+  <div class="max-w-6xl mx-auto px-4">
+    <h2 class="text-center text-4xl font-extrabold text-stone-800 mb-12">Sedes</h2>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+      {sedes.map(sede => (
+        <SedeCard {...sede} />
+      ))}
+    </div>
+  </div>
+</section>
