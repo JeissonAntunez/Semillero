@@ -1,9 +1,9 @@
 ---
 const sponsors = [
-  { name: 'BCP', src: '/logos/bcp.png' },
-  { name: 'ATV', src: '/logos/atv.png' },
-  { name: 'Adidas', src: '/logos/adidas.png' },
-  { name: 'Ferrero', src: '/logos/ferrero.png' },
+  { name: 'Huaral', src: '/muni.png' },
+  { name: 'Chancay', src: '/chancay2.png' },
+  { name: 'Aucallama', src: '/muniAcua.png' },
+  { name: 'Semillero', src: '/semilleroLogo.png' },
 ];
 
 // Triplicamos para asegurar que no haya huecos
@@ -19,7 +19,7 @@ const allSponsors = [...sponsors, ...sponsors, ...sponsors];
             <img 
               src={logo.src} 
               alt={logo.name} 
-              class="w-32 h-auto grayscale group-hover:grayscale-0 transition-all duration-500 pointer-events-none"
+              class="w-auto h-auto grayscale group-hover:grayscale-0 transition-all duration-500 pointer-events-none"
             />
           </div>
         </div>
@@ -40,14 +40,14 @@ const allSponsors = [...sponsors, ...sponsors, ...sponsors];
   }
   .magnetic-track {
     display: flex;
-    gap: 3rem;
+    gap: 6rem;
     padding: 4rem 0;
     will-change: transform;
   }
   .magnetic-item {
     flex: 0 0 auto;
     width: 200px;
-    height: 120px;
+    height: 220px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -56,18 +56,18 @@ const allSponsors = [...sponsors, ...sponsors, ...sponsors];
   .logo-box {
     width: 100%;
     height: 100%;
-    background: white;
-    border-radius: 20px;
+    /* border-radius: 20px;*/
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    /* box-shadow: 0 10px 30px rgba(0,0,0,0.05); */
     transform: rotateY(-25deg) rotateX(10deg);
     transition: box-shadow 0.3s ease;
   }
-  .magnetic-item:hover .logo-box {
+  /*.magnetic-item:hover .logo-box {
     box-shadow: 0 25px 60px rgba(0,0,0,0.12);
-  }
+  }*/
+ 
 </style>
 
 <script>
