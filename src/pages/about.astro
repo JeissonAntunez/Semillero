@@ -1,0 +1,397 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Semillero Huaral | Academia de Tenis</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300&display=swap" rel="stylesheet" />
+</head>
+<body class="bg-stone-950 text-white font-sans">
+
+<!-- ===================== NAVBAR ===================== -->
+<header class="fixed top-0 left-0 right-0 z-50 bg-stone-950/80 backdrop-blur-md border-b border-white/5">
+  <nav class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+    <!-- Logo -->
+    <a href="/" class="flex items-center gap-3 group">
+      <div class="w-9 h-9 rounded-full bg-lime-400 flex items-center justify-center">
+        <span class="text-stone-950 font-black text-sm leading-none">SH</span>
+      </div>
+      <span class="font-display text-xl tracking-wide text-white">SEMILLERO <span class="text-lime-400">HUARAL</span></span>
+    </a>
+
+    <!-- Links desktop -->
+    <ul class="hidden md:flex items-center gap-8 text-sm font-medium text-stone-400">
+      <li><a href="/nosotros" class="hover:text-white transition-colors">Nosotros</a></li>
+      <li><a href="/horarios" class="hover:text-white transition-colors">Horarios</a></li>
+      <li><a href="/eventos" class="hover:text-white transition-colors">Eventos</a></li>
+      <li><a href="/galeria" class="hover:text-white transition-colors">Galería</a></li>
+      <li><a href="/tienda" class="hover:text-white transition-colors">Tienda</a></li>
+    </ul>
+
+    <!-- CTA -->
+    <a href="/contacto" class="hidden md:inline-flex items-center gap-2 bg-lime-400 hover:bg-lime-300 text-stone-950 font-bold text-sm px-5 py-2.5 rounded-full transition-colors">
+      Inscríbete
+    </a>
+
+    <!-- Mobile hamburger -->
+    <button id="menu-toggle" class="md:hidden text-white p-2">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+      </svg>
+    </button>
+  </nav>
+
+  <!-- Mobile menu -->
+  <div id="mobile-menu" class="hidden md:hidden border-t border-white/10 px-6 py-4 space-y-3 bg-stone-950">
+    <a href="/nosotros" class="block text-stone-300 hover:text-white py-2">Nosotros</a>
+    <a href="/horarios" class="block text-stone-300 hover:text-white py-2">Horarios</a>
+    <a href="/eventos" class="block text-stone-300 hover:text-white py-2">Eventos</a>
+    <a href="/galeria" class="block text-stone-300 hover:text-white py-2">Galería</a>
+    <a href="/tienda" class="block text-stone-300 hover:text-white py-2">Tienda</a>
+    <a href="/contacto" class="block bg-lime-400 text-stone-950 font-bold text-center py-3 rounded-full mt-2">Inscríbete</a>
+  </div>
+</header>
+
+<!-- ===================== HERO ===================== -->
+<section class="relative min-h-screen flex items-center overflow-hidden pt-16">
+  <!-- Fondo con imagen -->
+  <div class="absolute inset-0 z-0">
+    <img
+      src="/TenisJuvenil.jpg"
+      alt="Academia de tenis"
+      class="w-full h-full object-cover object-center"
+    />
+    <!-- Gradiente oscuro -->
+    <div class="absolute inset-0 bg-gradient-to-r from-stone-950 via-stone-950/80 to-transparent"></div>
+    <div class="absolute inset-0 bg-gradient-to-t from-stone-950/60 via-transparent to-transparent"></div>
+  </div>
+
+  <!-- Contenido -->
+  <div class="relative z-10 max-w-7xl mx-auto px-6 py-24 md:py-32">
+    <div class="max-w-2xl">
+      <!-- Badge -->
+      <span class="inline-flex items-center gap-2 text-lime-400 text-sm font-semibold tracking-widest uppercase mb-6">
+        <span class="w-8 h-px bg-lime-400"></span>
+        Academia Oficial · Huaral, Lima
+      </span>
+
+      <!-- Título -->
+      <h1 class="font-display text-6xl md:text-8xl lg:text-9xl leading-none tracking-tight mb-6">
+        EL DEPORTE <br/>
+        <span class="text-lime-400">QUE</span> TE DA<br/>
+        <span class="text-stone-400">VIDA</span>
+      </h1>
+
+      <!-- Subtítulo -->
+      <p class="text-stone-300 text-lg md:text-xl leading-relaxed mb-10 max-w-lg">
+        Tenis para todas las edades. Aumenta tu esperanza de vida hasta
+        <strong class="text-white">9.7 años</strong>, mejora tu salud cardiovascular
+        y domina el deporte más completo del mundo.
+      </p>
+
+      <!-- CTAs -->
+      <div class="flex flex-wrap gap-4">
+        <a href="/contacto" class="inline-flex items-center gap-3 bg-lime-400 hover:bg-lime-300 text-stone-950 font-bold text-base px-8 py-4 rounded-full transition-all hover:scale-105 active:scale-95">
+          Reservar clase gratis
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+          </svg>
+        </a>
+        <a href="/tienda" class="inline-flex items-center gap-3 border border-white/20 hover:border-white/50 text-white font-semibold text-base px-8 py-4 rounded-full transition-colors">
+          Ver tienda 🛒
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scroll indicator -->
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 text-stone-500 text-xs tracking-widest">
+    <span class="uppercase">Scroll</span>
+    <div class="w-px h-8 bg-stone-500 animate-bounce"></div>
+  </div>
+</section>
+
+<!-- ===================== STATS ===================== -->
+<section class="py-16 border-y border-white/5 bg-stone-900">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="grid grid-cols-3 divide-x divide-white/10">
+      <div class="text-center px-8 py-4">
+        <div class="font-display text-5xl md:text-6xl text-lime-400">5+</div>
+        <div class="text-stone-400 text-sm mt-1 tracking-wide uppercase">Años de experiencia</div>
+      </div>
+      <div class="text-center px-8 py-4">
+        <div class="font-display text-5xl md:text-6xl text-lime-400">100+</div>
+        <div class="text-stone-400 text-sm mt-1 tracking-wide uppercase">Alumnos activos</div>
+      </div>
+      <div class="text-center px-8 py-4">
+        <div class="font-display text-5xl md:text-6xl text-lime-400">2</div>
+        <div class="text-stone-400 text-sm mt-1 tracking-wide uppercase">Sedes</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CATEGORÍAS ===================== -->
+<section class="py-24 max-w-7xl mx-auto px-6">
+  <div class="mb-14">
+    <span class="text-lime-400 text-sm font-semibold tracking-widest uppercase">Programas</span>
+    <h2 class="font-display text-5xl md:text-6xl mt-2">NUESTRAS CATEGORÍAS</h2>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+    <!-- Baby Tenis -->
+    <a href="/horarios#baby" class="group relative overflow-hidden rounded-2xl aspect-[3/4] block">
+      <img src="/BabyTenis.jpg" alt="Baby Tenis" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"/>
+      <div class="absolute inset-0 bg-gradient-to-t from-stone-950 via-stone-950/20 to-transparent"></div>
+      <div class="absolute bottom-0 left-0 right-0 p-5">
+        <div class="text-lime-400 text-xs font-semibold tracking-widest uppercase mb-1">4 – 7 años</div>
+        <h3 class="font-display text-2xl">BABY TENIS</h3>
+        <p class="text-stone-400 text-sm mt-1 group-hover:text-stone-200 transition-colors">Iniciación lúdica con material adaptado.</p>
+      </div>
+    </a>
+
+    <!-- Mini Tenis -->
+    <a href="/horarios#mini" class="group relative overflow-hidden rounded-2xl aspect-[3/4] block">
+      <img src="/MiniTenis.jpg" alt="Mini Tenis" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"/>
+      <div class="absolute inset-0 bg-gradient-to-t from-stone-950 via-stone-950/20 to-transparent"></div>
+      <div class="absolute bottom-0 left-0 right-0 p-5">
+        <div class="text-lime-400 text-xs font-semibold tracking-widest uppercase mb-1">8 – 11 años</div>
+        <h3 class="font-display text-2xl">MINI TENIS</h3>
+        <p class="text-stone-400 text-sm mt-1 group-hover:text-stone-200 transition-colors">Técnica y competencia en formato reducido.</p>
+      </div>
+    </a>
+
+    <!-- Juvenil -->
+    <a href="/horarios#juvenil" class="group relative overflow-hidden rounded-2xl aspect-[3/4] block">
+      <img src="/TenisJuvenil.jpg" alt="Tenis Juvenil" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"/>
+      <div class="absolute inset-0 bg-gradient-to-t from-stone-950 via-stone-950/20 to-transparent"></div>
+      <div class="absolute bottom-0 left-0 right-0 p-5">
+        <div class="text-lime-400 text-xs font-semibold tracking-widest uppercase mb-1">12 – 17 años</div>
+        <h3 class="font-display text-2xl">JUVENIL</h3>
+        <p class="text-stone-400 text-sm mt-1 group-hover:text-stone-200 transition-colors">Entrenamiento técnico y torneos.</p>
+      </div>
+    </a>
+
+    <!-- Adultos -->
+    <a href="/horarios#adultos" class="group relative overflow-hidden rounded-2xl aspect-[3/4] block">
+      <img src="/AdultoLibre.jpg" alt="Adultos" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"/>
+      <div class="absolute inset-0 bg-gradient-to-t from-stone-950 via-stone-950/20 to-transparent"></div>
+      <div class="absolute bottom-0 left-0 right-0 p-5">
+        <div class="text-lime-400 text-xs font-semibold tracking-widest uppercase mb-1">18+ años</div>
+        <h3 class="font-display text-2xl">ADULTOS</h3>
+        <p class="text-stone-400 text-sm mt-1 group-hover:text-stone-200 transition-colors">Clases libres y programas de salud.</p>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- ===================== GALERÍA ===================== -->
+<section class="py-24 bg-stone-900">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="mb-14">
+      <span class="text-lime-400 text-sm font-semibold tracking-widest uppercase">Instalaciones</span>
+      <h2 class="font-display text-5xl md:text-6xl mt-2">GALERÍA</h2>
+    </div>
+
+    <!-- Grid masonry-style -->
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+      <div class="col-span-2 md:col-span-1 row-span-2 overflow-hidden rounded-2xl">
+        <img src="/C1.jpg" alt="Cancha 1" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"/>
+      </div>
+      <div class="overflow-hidden rounded-2xl aspect-square">
+        <img src="/C2.jpg" alt="Cancha 2" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"/>
+      </div>
+      <div class="overflow-hidden rounded-2xl aspect-square">
+        <img src="/C3.jpg" alt="Cancha 3" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"/>
+      </div>
+      <div class="overflow-hidden rounded-2xl aspect-square">
+        <img src="/C4.jpg" alt="Cancha 4" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"/>
+      </div>
+      <div class="overflow-hidden rounded-2xl aspect-square">
+        <img src="/C5.jpg" alt="Cancha 5" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"/>
+      </div>
+      <div class="col-span-2 md:col-span-1 overflow-hidden rounded-2xl aspect-video md:aspect-square">
+        <img src="/C6.jpg" alt="Cancha 6" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"/>
+      </div>
+    </div>
+
+    <div class="text-center mt-10">
+      <a href="/galeria" class="inline-flex items-center gap-2 border border-white/20 hover:border-lime-400 hover:text-lime-400 text-white font-semibold px-8 py-3 rounded-full transition-colors">
+        Ver galería completa →
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SEDES ===================== -->
+<section class="py-24 max-w-7xl mx-auto px-6">
+  <div class="mb-14">
+    <span class="text-lime-400 text-sm font-semibold tracking-widest uppercase">Dónde estamos</span>
+    <h2 class="font-display text-5xl md:text-6xl mt-2">NUESTRAS SEDES</h2>
+  </div>
+
+  <div class="grid md:grid-cols-2 gap-6">
+    <!-- Sede Chancay -->
+    <div class="bg-stone-900 rounded-2xl p-8 border border-white/5 hover:border-lime-400/30 transition-colors group">
+      <div class="flex items-start justify-between mb-6">
+        <div>
+          <span class="inline-block bg-lime-400 text-stone-950 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest mb-3">Sede A</span>
+          <h3 class="font-display text-3xl">CHANCAY</h3>
+        </div>
+        <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-2xl group-hover:bg-lime-400/10 transition-colors">
+          🎾
+        </div>
+      </div>
+      <div class="space-y-3 text-stone-400">
+        <p class="flex items-start gap-3">
+          <span class="text-lime-400 mt-0.5">📍</span>
+          <span>Av. Chancay 123, Urb. Chancay, Chancay<br/><span class="text-xs text-stone-500">Ref: Frontis del estadio de Chancay</span></span>
+        </p>
+      </div>
+      <a href="https://goo.gl/maps/" target="_blank" rel="noopener" class="inline-flex items-center gap-2 mt-6 text-sm font-semibold text-lime-400 hover:text-lime-300 transition-colors">
+        Ver en Google Maps →
+      </a>
+    </div>
+
+    <!-- Sede Huaral -->
+    <div class="bg-stone-900 rounded-2xl p-8 border border-white/5 hover:border-lime-400/30 transition-colors group">
+      <div class="flex items-start justify-between mb-6">
+        <div>
+          <span class="inline-block bg-lime-400 text-stone-950 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest mb-3">Sede B</span>
+          <h3 class="font-display text-3xl">HUARAL</h3>
+        </div>
+        <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-2xl group-hover:bg-lime-400/10 transition-colors">
+          🏟️
+        </div>
+      </div>
+      <div class="space-y-3 text-stone-400">
+        <p class="flex items-start gap-3">
+          <span class="text-lime-400 mt-0.5">📍</span>
+          <span>Estadio Julio Lores Colán, Huaral<br/><span class="text-xs text-stone-500">Ref: Parque Ortiz, Huaral</span></span>
+        </p>
+      </div>
+      <a href="https://goo.gl/maps/" target="_blank" rel="noopener" class="inline-flex items-center gap-2 mt-6 text-sm font-semibold text-lime-400 hover:text-lime-300 transition-colors">
+        Ver en Google Maps →
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== ALIADOS ===================== -->
+<section class="py-16 border-y border-white/5 overflow-hidden">
+  <div class="max-w-7xl mx-auto px-6 mb-8">
+    <span class="text-stone-500 text-sm font-semibold tracking-widest uppercase">Con el apoyo de</span>
+  </div>
+  <div class="flex gap-16 items-center animate-[scroll_20s_linear_infinite] w-max">
+    {[1,2,3].map(() => (
+      <div class="flex gap-16 items-center">
+        <img src="/muni.png" alt="Municipalidad Huaral" class="h-12 object-contain opacity-60 hover:opacity-100 transition-opacity"/>
+        <img src="/chancay2.png" alt="Chancay" class="h-12 object-contain opacity-60 hover:opacity-100 transition-opacity"/>
+        <img src="/muniAcua.png" alt="Aucallama" class="h-12 object-contain opacity-60 hover:opacity-100 transition-opacity"/>
+        <img src="/semilleroLogo.png" alt="Semillero" class="h-12 object-contain opacity-60 hover:opacity-100 transition-opacity"/>
+      </div>
+    ))}
+  </div>
+</section>
+
+<!-- ===================== CTA FINAL ===================== -->
+<section class="py-24 max-w-7xl mx-auto px-6 text-center">
+  <div class="max-w-2xl mx-auto">
+    <h2 class="font-display text-6xl md:text-7xl mb-6 leading-none">
+      ¿LISTO PARA<br/><span class="text-lime-400">JUGAR?</span>
+    </h2>
+    <p class="text-stone-400 text-lg mb-10">Tu primera clase es gratis. Sin compromisos, solo tenis.</p>
+    <a href="/contacto" class="inline-flex items-center gap-3 bg-lime-400 hover:bg-lime-300 text-stone-950 font-bold text-lg px-10 py-5 rounded-full transition-all hover:scale-105 active:scale-95">
+      Reservar mi clase gratis
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+      </svg>
+    </a>
+  </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="border-t border-white/10 bg-stone-950 py-14">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+      <!-- Brand -->
+      <div class="md:col-span-2">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-9 h-9 rounded-full bg-lime-400 flex items-center justify-center">
+            <span class="text-stone-950 font-black text-sm">SH</span>
+          </div>
+          <span class="font-display text-xl tracking-wide">SEMILLERO <span class="text-lime-400">HUARAL</span></span>
+        </div>
+        <p class="text-stone-400 text-sm leading-relaxed max-w-xs">
+          Formando a los campeones de mañana en un ambiente de apoyo y excelencia deportiva.
+        </p>
+        <!-- Redes sociales reales -->
+        <div class="flex gap-4 mt-6">
+          <a href="#" aria-label="TikTok" class="w-10 h-10 rounded-full bg-white/5 hover:bg-lime-400/20 hover:text-lime-400 flex items-center justify-center transition-colors text-stone-400">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.34 6.34 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.19 8.19 0 004.79 1.53V6.77a4.85 4.85 0 01-1.02-.08z"/></svg>
+          </a>
+          <a href="#" aria-label="Facebook" class="w-10 h-10 rounded-full bg-white/5 hover:bg-lime-400/20 hover:text-lime-400 flex items-center justify-center transition-colors text-stone-400">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          </a>
+          <a href="#" aria-label="Instagram" class="w-10 h-10 rounded-full bg-white/5 hover:bg-lime-400/20 hover:text-lime-400 flex items-center justify-center transition-colors text-stone-400">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+          </a>
+          <a href="mailto:info@semillerohuaral.com" aria-label="Email" class="w-10 h-10 rounded-full bg-white/5 hover:bg-lime-400/20 hover:text-lime-400 flex items-center justify-center transition-colors text-stone-400">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Links -->
+      <div>
+        <h4 class="font-semibold text-white mb-4 text-sm uppercase tracking-wide">Academia</h4>
+        <ul class="space-y-2 text-stone-400 text-sm">
+          <li><a href="/nosotros" class="hover:text-lime-400 transition-colors">Sobre Nosotros</a></li>
+          <li><a href="/horarios" class="hover:text-lime-400 transition-colors">Horarios</a></li>
+          <li><a href="/eventos" class="hover:text-lime-400 transition-colors">Eventos</a></li>
+          <li><a href="/galeria" class="hover:text-lime-400 transition-colors">Galería</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="font-semibold text-white mb-4 text-sm uppercase tracking-wide">Legal</h4>
+        <ul class="space-y-2 text-stone-400 text-sm">
+          <li><a href="/privacidad" class="hover:text-lime-400 transition-colors">Privacidad</a></li>
+          <li><a href="/terminos" class="hover:text-lime-400 transition-colors">Términos</a></li>
+          <li><a href="/contacto" class="hover:text-lime-400 transition-colors">Contacto</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="border-t border-white/5 pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-stone-600 text-sm">
+      <span>© 2026 Semillero Huaral · Academia de Tenis</span>
+      <span>Hecho con ❤️ en Huaral, Lima</span>
+    </div>
+  </div>
+</footer>
+
+<!-- Tailwind custom config & mobile menu script -->
+<style>
+  @keyframes scroll {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-33.333%); }
+  }
+  .font-display { font-family: 'Bebas Neue', cursive; }
+  .font-sans    { font-family: 'DM Sans', sans-serif; }
+</style>
+
+<script>
+  const toggle = document.getElementById('menu-toggle');
+  const menu   = document.getElementById('mobile-menu');
+  toggle?.addEventListener('click', () => menu?.classList.toggle('hidden'));
+</script>
+
+</body>
+</html>

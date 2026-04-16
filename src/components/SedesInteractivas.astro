@@ -1,137 +1,656 @@
 ---
-// Datos de tus sedes (puedes añadir más aquí)
 const sedes = [
   {
-    id: "A",
-    nombre: "Chancay",
-    coords: { lat: -11.961, lng: -77.068 },
-    direccion: "Av.chancay 123, Urb. Chancay, Chancay",
-    distrito: "Chancay, Lima"
+    id: "chancay",
+    letra: "A",
+    nombre: "CHANCAY",
+    direccion: "Av. Chancay 123, Urb. Chancay",
+    ubicacion: "Chancay, Lima",
+    imagenes: ["/C1.jpg", "/C2.jpg", "/C3.jpg"]
   },
   {
-    id: "B",
-    nombre: "Huaral",
-    coords: { lat: -11.955, lng: -77.075 },
+    id: "huaral",
+    letra: "B",
+    nombre: "HUARAL",
     direccion: "Parque Ortiz, Huaral",
-    distrito: "Huaral, Lima"
+    ubicacion: "Huaral, Lima",
+    imagenes: ["/C4.jpg", "/C5.jpg", "/C6.jpg"]
   }
 ];
 ---
 
-<section class="max-w-7xl mx-auto py-12 px-4 font-sans">
-  <h2 class="text-3xl font-bold text-stone-800 mb-8 italic uppercase tracking-tighter">Nuestras Sedes</h2>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;0,800;1,700;1,800&display=swap" rel="stylesheet" />
 
-  <div class="flex flex-col gap-6">
-    <!-- Contenedor de Tarjetas Estilo "Commutes" -->
-    <div class="flex overflow-x-auto pb-4 gap-4 custom-scrollbar" id="destinations-list">
-      {sedes.map((sede, index) => (
-        <button 
-          class:list={[
-            "sede-card min-w-[280px] flex-1 bg-white p-4 rounded-xl shadow-md border-t-4 transition-all text-left relative group",
-            index === 0 ? "border-blue-500 active-sede" : "border-transparent"
-          ]}
-          data-lat={sede.coords.lat}
-          data-lng={sede.coords.lng}
-        >
-          <div class="flex items-center gap-2 mb-2">
-            <span class="location-marker bg-stone-100 text-stone-600 font-bold px-2 py-0.5 rounded text-sm group-[.active-sede]:bg-red-100 group-[.active-sede]:text-red-600">
-              {sede.id}
-            </span>
-            <span class="text-xs font-bold text-stone-400 uppercase tracking-widest">Sede Oficial</span>
+<section class="sedes-section">
+
+  <h2 class="sedes-titulo">Nuestras Sedes</h2>
+
+  <!-- Selector de Sedes -->
+  <div class="sedes-grid">
+    {sedes.map((sede, index) => (
+      <button
+        data-sede-btn={sede.id}
+        class={`sede-card ${index === 0 ? 'sede-card--activa' : ''}`}
+        aria-pressed={index === 0 ? "true" : "false"}
+      >
+        <div class="sede-card__header">
+          <span class={`sede-badge ${index === 0 ? 'sede-badge--activa' : ''}`}>
+            {sede.letra}
+          </span>
+          <span class="sede-label">Sede Oficial</span>
+        </div>
+        <h3 class="sede-nombre">{sede.nombre}</h3>
+        <p class="sede-direccion">{sede.direccion}</p>
+        <p class="sede-ubicacion">{sede.ubicacion}</p>
+
+        <!-- Radio indicador -->
+        <div class={`sede-radio ${index === 0 ? 'sede-radio--activa' : ''}`}>
+          <div class={`sede-radio__dot ${index === 0 ? 'sede-radio__dot--activa' : ''}`}></div>
+        </div>
+      </button>
+    ))}
+  </div>
+
+  <!-- Visor carrusel -->
+  <div class="carrusel-wrapper">
+    {sedes.map((sede, sedeIndex) => (
+      <div
+        data-carrusel-id={sede.id}
+        class={`carrusel ${sedeIndex === 0 ? 'carrusel--visible' : 'carrusel--oculto'}`}
+        aria-hidden={sedeIndex !== 0 ? "true" : "false"}
+      >
+        <!-- Slides -->
+        {sede.imagenes.map((img, imgIndex) => (
+          <div
+            data-slide={`${sede.id}-${imgIndex}`}
+            class={`slide ${imgIndex === 0 ? 'slide--visible' : 'slide--oculto'}`}
+          >
+            <img
+              src={img}
+              alt={`${sede.nombre} - imagen ${imgIndex + 1}`}
+              class="slide__img"
+              loading={sedeIndex === 0 && imgIndex === 0 ? "eager" : "lazy"}
+            />
+            <div class="slide__overlay"></div>
           </div>
-          
-          <h3 class="text-lg font-black text-stone-800 leading-tight uppercase italic">{sede.nombre}</h3>
-          <p class="text-sm text-stone-500 truncate mt-1">{sede.direccion}</p>
-          <p class="text-xs text-stone-400">{sede.distrito}</p>
+        ))}
 
-          <!-- Botón flotante estilo Google -->
-          <div class="absolute right-4 top-1/2 -translate-y-1/2">
-             <div class="w-10 h-10 rounded-full border border-stone-200 flex items-center justify-center bg-white group-[.active-sede]:text-blue-500 group-[.active-sede]:border-blue-200 shadow-sm">
-                
-             </div>
+        <!-- Contador top-right -->
+        <div class="carrusel__contador" data-contador={sede.id}>
+          <span data-contador-actual={sede.id}>1</span>
+          <span class="carrusel__contador-sep">/</span>
+          <span>{sede.imagenes.length}</span>
+        </div>
+
+        <!-- Info sede -->
+        <div class="carrusel__info">
+          <span class="carrusel__info-ubicacion">{sede.ubicacion}</span>
+          <h4 class="carrusel__info-nombre">{sede.nombre}</h4>
+          <p class="carrusel__info-dir">{sede.direccion}</p>
+        </div>
+
+        <!-- Controles -->
+        <div class="carrusel__controles">
+          <!-- Dots -->
+          <div class="dots-wrapper">
+            {sede.imagenes.map((_, dotIndex) => (
+              <button
+                data-dot={`${sede.id}-${dotIndex}`}
+                class={`dot ${dotIndex === 0 ? 'dot--activo' : ''}`}
+                aria-label={`Ir a imagen ${dotIndex + 1}`}
+              ></button>
+            ))}
           </div>
-        </button>
-      ))}
-    </div>
 
-    <!-- Mapa Interactivo -->
-    <div id="map" class="w-full h-[450px] rounded-2xl shadow-inner bg-stone-100 border border-stone-200"></div>
+          <!-- Botón Prev -->
+          <button
+            data-prev={sede.id}
+            class="carrusel__btn"
+            aria-label="Imagen anterior"
+          >
+            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/>
+            </svg>
+          </button>
+
+          <!-- Botón Next -->
+          <button
+            data-next={sede.id}
+            class="carrusel__btn"
+            aria-label="Siguiente imagen"
+          >
+            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    ))}
   </div>
 </section>
 
 <style>
-    @reference "tailwindcss"; 
-  .custom-scrollbar::-webkit-scrollbar { height: 6px; }
-  .custom-scrollbar::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 10px; }
-  
-  .active-sede { 
-    /* Ahora ya no marcará error */
-    @apply ring-2 ring-blue-100 shadow-lg; 
+  /* ─── Fuente ─────────────────────────────── */
+  .sedes-section {
+    font-family: 'Barlow Condensed', system-ui, sans-serif;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 4rem 1.25rem;
+  }
+
+  /* ─── Título ─────────────────────────────── */
+  .sedes-titulo {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: 800;
+    font-style: italic;
+    text-transform: uppercase;
+    letter-spacing: -0.03em;
+    color: #1c1917;
+    margin: 0 0 2rem;
+  }
+
+  /* ─── Grid selector sedes ────────────────── */
+  .sedes-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.875rem;
+    margin-bottom: 1.25rem;
+  }
+
+  @media (max-width: 540px) {
+    .sedes-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* ─── Tarjeta sede ───────────────────────── */
+  .sede-card {
+    position: relative;
+    text-align: left;
+    background: #fff;
+    border: 2px solid #e7e5e4;
+    border-radius: 1rem;
+    padding: 1.125rem 1.25rem;
+    cursor: pointer;
+    transition: border-color 180ms, transform 180ms, box-shadow 180ms;
+    box-shadow: 4px 4px 0 #e7e5e4;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .sede-card:hover {
+    border-color: #3b82f6;
+    box-shadow: 6px 6px 0 #bfdbfe;
+    transform: translate(-2px, -2px);
+  }
+
+  .sede-card:active {
+    transform: translate(0, 0);
+    box-shadow: none;
+  }
+
+  .sede-card--activa {
+    border-color: #3b82f6;
+    box-shadow: 4px 4px 0 #3b82f6;
+    transform: translate(-2px, -2px);
+  }
+
+  /* ─── Header tarjeta ─────────────────────── */
+  .sede-card__header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .sede-badge {
+    font-size: 0.625rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    padding: 0.2rem 0.5rem;
+    border-radius: 0.375rem;
+    background: #f5f5f4;
+    color: #78716c;
+    transition: background 180ms, color 180ms;
+  }
+
+  .sede-badge--activa {
+    background: #ef4444;
+    color: #fff;
+  }
+
+  .sede-card:hover .sede-badge:not(.sede-badge--activa) {
+    background: #3b82f6;
+    color: #fff;
+  }
+
+  .sede-label {
+    font-size: 0.625rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #a8a29e;
+  }
+
+  /* ─── Textos tarjeta ─────────────────────── */
+  .sede-nombre {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #1c1917;
+    letter-spacing: -0.02em;
+    margin: 0 0 0.25rem;
+    line-height: 1.1;
+    padding-right: 2.5rem;
+  }
+
+  .sede-direccion {
+    font-size: 0.75rem;
+    color: #a8a29e;
+    margin: 0 0 0.125rem;
+    line-height: 1.4;
+  }
+
+  .sede-ubicacion {
+    font-size: 0.625rem;
+    color: #a8a29e;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin: 0;
+  }
+
+  /* ─── Radio indicador ────────────────────── */
+  .sede-radio {
+    position: absolute;
+    right: 1.25rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: 50%;
+    border: 2px solid #d6d3d1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: border-color 180ms;
+    box-shadow: 2px 2px 0 #d6d3d1;
+  }
+
+  .sede-radio--activa {
+    border-color: #3b82f6;
+    box-shadow: 2px 2px 0 #bfdbfe;
+  }
+
+  .sede-radio__dot {
+    width: 0.75rem;
+    height: 0.75rem;
+    border-radius: 50%;
+    background: transparent;
+    transition: background 180ms, transform 180ms;
+  }
+
+  .sede-radio__dot--activa {
+    background: #3b82f6;
+    transform: scale(1.1);
+  }
+
+  /* ─── Wrapper carrusel ───────────────────── */
+  .carrusel-wrapper {
+    position: relative;
+    border-radius: 1.5rem;
+    overflow: hidden;
+    border: 2px solid #1c1917;
+    box-shadow: 6px 6px 0 #1c1917;
+    aspect-ratio: 16 / 9;
+    background: #1c1917;
+  }
+
+  @media (max-width: 540px) {
+    .carrusel-wrapper {
+      aspect-ratio: 4 / 3;
+      border-radius: 1rem;
+      box-shadow: 4px 4px 0 #1c1917;
+    }
+  }
+
+  /* ─── Carrusel individual ────────────────── */
+  .carrusel {
+    position: absolute;
+    inset: 0;
+    transition: opacity 400ms ease;
+  }
+
+  .carrusel--visible {
+    opacity: 1;
+    z-index: 10;
+  }
+
+  .carrusel--oculto {
+    opacity: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  /* ─── Slides ─────────────────────────────── */
+  .slide {
+    position: absolute;
+    inset: 0;
+    transition: opacity 600ms ease;
+  }
+
+  .slide--visible { opacity: 1; }
+  .slide--oculto  { opacity: 0; }
+
+  .slide__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .slide__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to top,
+      rgba(0,0,0,0.65) 0%,
+      rgba(0,0,0,0.15) 40%,
+      transparent 70%
+    );
+  }
+
+  /* ─── Contador ───────────────────────────── */
+  .carrusel__contador {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    z-index: 20;
+    background: rgba(0,0,0,0.45);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    padding: 0.25rem 0.625rem;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.2);
+  }
+
+  .carrusel__contador-sep {
+    margin: 0 0.2em;
+    opacity: 0.5;
+  }
+
+  /* ─── Info sobre imagen ──────────────────── */
+  .carrusel__info {
+    position: absolute;
+    bottom: 1.25rem;
+    left: 1.25rem;
+    z-index: 20;
+    color: #fff;
+    max-width: calc(100% - 10rem);
+  }
+
+  .carrusel__info-ubicacion {
+    display: block;
+    font-size: 0.625rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.55);
+    margin-bottom: 0.125rem;
+  }
+
+  .carrusel__info-nombre {
+    font-size: clamp(1.25rem, 3vw, 1.75rem);
+    font-weight: 800;
+    font-style: italic;
+    letter-spacing: -0.02em;
+    margin: 0 0 0.125rem;
+    text-shadow: 0 1px 8px rgba(0,0,0,0.4);
+    line-height: 1.1;
+  }
+
+  .carrusel__info-dir {
+    font-size: 0.7rem;
+    color: rgba(255,255,255,0.65);
+    margin: 0;
+  }
+
+  /* ─── Controles ──────────────────────────── */
+  .carrusel__controles {
+    position: absolute;
+    bottom: 1.25rem;
+    right: 1.25rem;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  @media (max-width: 400px) {
+    .carrusel__info {
+      bottom: 1rem;
+      left: 1rem;
+      max-width: calc(100% - 7rem);
+    }
+    .carrusel__controles {
+      bottom: 1rem;
+      right: 1rem;
+    }
+  }
+
+  /* ─── Dots ───────────────────────────────── */
+  .dots-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    margin-right: 0.25rem;
+  }
+
+  .dot {
+    height: 0.5rem;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.4);
+    border: 1px solid rgba(255,255,255,0.3);
+    cursor: pointer;
+    transition: width 250ms ease, background 250ms ease;
+    padding: 0;
+    width: 0.5rem;
+  }
+
+  .dot--activo {
+    background: #fff;
+    width: 1.375rem;
+  }
+
+  /* ─── Botones prev/next ──────────────────── */
+  .carrusel__btn {
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 0.625rem;
+    background: rgba(255,255,255,0.18);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.25);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 150ms, transform 100ms, box-shadow 100ms;
+    box-shadow: 2px 2px 0 rgba(0,0,0,0.25);
+  }
+
+  .carrusel__btn:hover {
+    background: rgba(255,255,255,0.32);
+  }
+
+  .carrusel__btn:active {
+    transform: translate(1px, 1px);
+    box-shadow: none;
+  }
+
+  /* ─── Accesibilidad ──────────────────────── */
+  .sede-card:focus-visible,
+  .carrusel__btn:focus-visible,
+  .dot:focus-visible {
+    outline: 3px solid #3b82f6;
+    outline-offset: 2px;
   }
 </style>
 
 <script>
-  import { Loader } from "@googlemaps/js-api-loader";
+  const currentSlide: Record<string, number> = {};
+  const totalSlides: Record<string, number> = {};
 
-  const loader = new Loader({
-    apiKey: "AIzaSyBFu9g2TiBtz1AQ4mAjoTWbnGaZywVo4WA", // REEMPLAZA CON TU API KEY
-    version: "weekly"
+  // Inicializar estado dinámicamente desde el DOM
+  document.querySelectorAll<HTMLElement>('[data-carrusel-id]').forEach(el => {
+    const id = el.getAttribute('data-carrusel-id')!;
+    currentSlide[id] = 0;
+    totalSlides[id] = el.querySelectorAll('[data-slide]').length;
   });
 
-  async function initMap() {
-    const mapElement = document.getElementById("map") as HTMLElement;
-    if (!mapElement) return;
+  function goToSlide(sedeId: string, index: number) {
+    const total = totalSlides[sedeId];
+    if (!total) return;
+    const next = ((index % total) + total) % total;
+    currentSlide[sedeId] = next;
 
-    try {
-      // Cargamos librerías con el nuevo estándar funcional
-      const [{ Map }, { AdvancedMarkerElement, PinElement }] = await Promise.all([
-        (loader as any).importLibrary("maps"),
-        (loader as any).importLibrary("marker")
-      ]) as [google.maps.MapsLibrary, google.maps.MarkerLibrary];
+    // Slides
+    document.querySelectorAll<HTMLElement>(`[data-slide^="${sedeId}-"]`).forEach((el, i) => {
+      el.classList.toggle('slide--visible', i === next);
+      el.classList.toggle('slide--oculto', i !== next);
+    });
 
-      const map = new Map(mapElement, {
-        center: { lat: -11.958, lng: -77.071 },
-        zoom: 14,
-        mapId: "DEMO_MAP_ID", // Cambia por tu MapID real para estilos
-        disableDefaultUI: false,
+    // Dots
+    document.querySelectorAll<HTMLElement>(`[data-dot^="${sedeId}-"]`).forEach((dot, i) => {
+      dot.classList.toggle('dot--activo', i === next);
+    });
+
+    // Contador
+    const contador = document.querySelector<HTMLElement>(`[data-contador-actual="${sedeId}"]`);
+    if (contador) contador.textContent = String(next + 1);
+  }
+
+  // Prev / Next
+  document.querySelectorAll<HTMLElement>('[data-prev]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = btn.getAttribute('data-prev')!;
+      goToSlide(id, currentSlide[id] - 1);
+    });
+  });
+
+  document.querySelectorAll<HTMLElement>('[data-next]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = btn.getAttribute('data-next')!;
+      goToSlide(id, currentSlide[id] + 1);
+    });
+  });
+
+  // Dots
+  document.querySelectorAll<HTMLElement>('[data-dot]').forEach(dot => {
+    dot.addEventListener('click', () => {
+      const val = dot.getAttribute('data-dot')!;
+      const lastDash = val.lastIndexOf('-');
+      const sedeId = val.slice(0, lastDash);
+      const idx = parseInt(val.slice(lastDash + 1), 10);
+      goToSlide(sedeId, idx);
+    });
+  });
+
+  // Swipe touch en móvil
+  document.querySelectorAll<HTMLElement>('[data-carrusel-id]').forEach(carrusel => {
+    const sedeId = carrusel.getAttribute('data-carrusel-id')!;
+    let startX = 0;
+
+    carrusel.addEventListener('touchstart', (e: TouchEvent) => {
+      startX = e.touches[0].clientX;
+    }, { passive: true });
+
+    carrusel.addEventListener('touchend', (e: TouchEvent) => {
+      const diff = startX - e.changedTouches[0].clientX;
+      if (Math.abs(diff) > 40) {
+        goToSlide(sedeId, currentSlide[sedeId] + (diff > 0 ? 1 : -1));
+      }
+    }, { passive: true });
+  });
+
+  // Selector de sede
+  const sedeButtons = document.querySelectorAll<HTMLElement>('[data-sede-btn]');
+  const carruseles  = document.querySelectorAll<HTMLElement>('[data-carrusel-id]');
+
+  sedeButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const selected = btn.getAttribute('data-sede-btn')!;
+
+      // Resetear todas las tarjetas
+      sedeButtons.forEach(b => {
+        b.classList.remove('sede-card--activa');
+        b.setAttribute('aria-pressed', 'false');
+
+        const badge = b.querySelector<HTMLElement>('.sede-badge');
+        badge?.classList.remove('sede-badge--activa');
+
+        const radio = b.querySelector<HTMLElement>('.sede-radio');
+        radio?.classList.remove('sede-radio--activa');
+
+        const dot = b.querySelector<HTMLElement>('.sede-radio__dot');
+        dot?.classList.remove('sede-radio__dot--activa');
       });
 
-      const buttons = document.querySelectorAll('.sede-card') as NodeListOf<HTMLButtonElement>;
+      // Activar tarjeta seleccionada
+      btn.classList.add('sede-card--activa');
+      btn.setAttribute('aria-pressed', 'true');
 
-      buttons.forEach((button) => {
-        const lat = parseFloat(button.dataset.lat || "0");
-        const lng = parseFloat(button.dataset.lng || "0");
+      const badge = btn.querySelector<HTMLElement>('.sede-badge');
+      badge?.classList.add('sede-badge--activa');
 
-        // Pin personalizado
-        const pin = new PinElement({
-          background: "#3b82f6",
-          borderColor: "#fff",
-          glyphColor: "#fff",
-        });
+      const radio = btn.querySelector<HTMLElement>('.sede-radio');
+      radio?.classList.add('sede-radio--activa');
 
-        new AdvancedMarkerElement({
-          map,
-          position: { lat, lng },
-          content: pin.element,
-        });
+      const dot = btn.querySelector<HTMLElement>('.sede-radio__dot');
+      dot?.classList.add('sede-radio__dot--activa');
 
-        button.addEventListener('click', () => {
-          map.panTo({ lat, lng });
-          setTimeout(() => map.setZoom(17), 300);
-
-          // Actualizar UI de tarjetas
-          buttons.forEach(b => {
-            b.classList.remove('border-blue-500', 'active-sede');
-            b.classList.add('border-transparent');
-          });
-          button.classList.add('border-blue-500', 'active-sede');
-          button.classList.remove('border-transparent');
-        });
+      // Cambiar carrusel visible
+      carruseles.forEach(c => {
+        const isSelected = c.getAttribute('data-carrusel-id') === selected;
+        c.classList.toggle('carrusel--visible', isSelected);
+        c.classList.toggle('carrusel--oculto', !isSelected);
+        c.setAttribute('aria-hidden', isSelected ? 'false' : 'true');
       });
-    } catch (e) {
-      console.error(e);
+    });
+  });
+
+  // Autoplay (5s por sede activa)
+  let autoplayTimer: ReturnType<typeof setInterval> | null = null;
+
+  function startAutoplay() {
+    stopAutoplay();
+    autoplayTimer = setInterval(() => {
+      const visible = document.querySelector<HTMLElement>('.carrusel--visible');
+      if (!visible) return;
+      const id = visible.getAttribute('data-carrusel-id')!;
+      goToSlide(id, currentSlide[id] + 1);
+    }, 5000);
+  }
+
+  function stopAutoplay() {
+    if (autoplayTimer) {
+      clearInterval(autoplayTimer);
+      autoplayTimer = null;
     }
   }
 
-  initMap();
+  // Pausar autoplay al interactuar
+  document.querySelectorAll('[data-prev], [data-next], [data-dot], [data-sede-btn]').forEach(el => {
+    el.addEventListener('click', () => {
+      stopAutoplay();
+      // Reanudar después de 8s de inactividad
+      setTimeout(startAutoplay, 8000);
+    });
+  });
+
+  startAutoplay();
 </script>
